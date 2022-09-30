@@ -31,6 +31,11 @@ def pick(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    paragraphs = [i for i in paragraphs if select(i)]
+    if len(paragraphs)>k:
+        return paragraphs[k]
+    else:
+        return ''
     # END PROBLEM 1
 
 
@@ -49,7 +54,13 @@ def about(topic):
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    def uu(somewords):
+      list=split(somewords)
+      for i in list:
+        if lower(remove_punctuation(i)) in topic:
+          return True
+      return False
+    return uu
     # END PROBLEM 2
 
 
@@ -78,6 +89,31 @@ def accuracy(typed, source):
     """
     typed_words = split(typed)
     source_words = split(source)
+    len1 = len(typed_words)
+    len2 = len(source_words)
+    i=0
+    count = 0
+    if len1 ==0 and len2 ==0:
+        return 100.0
+    elif len1 ==0 or len2 ==0:
+        return 0.0
+    elif len1 <= len2:
+        while i < len1:
+            if typed_words[i]==source_words[i]:
+                count+=1
+                i+=1
+            else:
+                i+=1
+        return 100.0*count/len1
+    elif len1 > len2:
+        while i < len2:
+            if typed_words[i]==source_words[i]:
+                count+=1
+                i+=1
+            else:
+                i+=1
+        return 100.0*count/len1
+
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
     # END PROBLEM 3
@@ -97,6 +133,7 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
+    return (len(typed)/5)/(elapsed/60)
     "*** YOUR CODE HERE ***"
     # END PROBLEM 4
 
@@ -124,7 +161,17 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    theword=typed_word
+    min = limit
+    if typed_word in word_list:
+        return typed_word
+    else:
+        for word in word_list:
+            if diff_function(typed_word,word,limit)<=min:
+                min = diff_function(typed_word,word,limit)
+                theword = word
+        return theword 
+
     # END PROBLEM 5
 
 
