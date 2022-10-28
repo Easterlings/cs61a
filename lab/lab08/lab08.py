@@ -8,6 +8,12 @@ def convert_link(link):
     []
     """
     "*** YOUR CODE HERE ***"
+    lst = []
+    if link.rest is not Link.empty:
+        lst.append(link.first)
+        return lst.extend(convert_link(link.rest))
+    else:
+        return lst.append(link.first)
 
 
 def duplicate_link(link, val):
