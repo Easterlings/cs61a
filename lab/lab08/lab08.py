@@ -9,11 +9,21 @@ def convert_link(link):
     """
     "*** YOUR CODE HERE ***"
     lst = []
-    if link.rest is not Link.empty:
+    if link == Link.empty:
+        return []
+    while link != Link.empty:
         lst.append(link.first)
-        return lst.extend(convert_link(link.rest))
-    else:
-        return lst.append(link.first)
+        link = link.rest
+    return lst
+    
+    
+    # if link.rest is not Link.empty:
+    #     lst.append(link.first)
+    #     return lst.extend(convert_link(link.rest))
+    # elif link is Link.empty:
+    #     return []
+    # else:
+    #     return lst.append(link.first)
 
 
 def duplicate_link(link, val):
@@ -36,6 +46,14 @@ def duplicate_link(link, val):
     Link(1, Link(2, Link(2, Link(2, Link(2, Link(3))))))
     """
     "*** YOUR CODE HERE ***"
+    while link != Link.empty:
+        if link.first==val:
+            node = Link(val)
+            node.rest = link.rest
+            link.rest = node
+            link = link.rest.rest
+        else:
+            link = link.rest
 
 
 def cumulative_mul(t):
