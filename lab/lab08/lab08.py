@@ -70,6 +70,14 @@ def cumulative_mul(t):
     Tree(5040, [Tree(60, [Tree(3), Tree(4), Tree(5)]), Tree(42, [Tree(7)])])
     """
     "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return t.label
+    for i in range(len(t.branches)):
+        if not t.branches[i].is_leaf():
+            cumulative_mul(t.branches[i])
+            t.label *= t.branches[i].label
+        else:
+            t.label *= t.branches[i].label
 
 
 def every_other(s):
@@ -90,6 +98,11 @@ def every_other(s):
     Link(4)
     """
     "*** YOUR CODE HERE ***"
+    t = s
+    while t.rest is not Link.empty:
+        t.rest = t.rest.rest
+        if t.rest is not Link.empty:
+            t = t.rest
 
 
 def prune_small(t, n):
@@ -109,11 +122,11 @@ def prune_small(t, n):
     >>> t3
     Tree(6, [Tree(1), Tree(3, [Tree(1), Tree(2)])])
     """
-    while ___________________________:
-        largest = max(_______________, key=____________________)
-        _________________________
-    for __ in _____________:
-        ___________________
+    while len(t.branches)>n:
+        largest = max(t.branches, key=lambda x: x.label)
+        t.branches.remove(largest)
+    for tree in t.branches:
+        prune_small(tree, n)
 
 
 class Link:
