@@ -49,14 +49,14 @@ def non_decrease_subseqs(s):
     """
     def subseq_helper(s, prev):
         if not s:
-            return ____________________
+            return [[]]
         elif s[0] < prev:
-            return ____________________
+            return [s[0]]
         else:
-            a = ______________________
-            b = ______________________
-            return insert_into_all(________, ______________) + ________________
-    return subseq_helper(____, ____)
+            a = subseqs(s[1:])
+            b = subseqs(s[1:])
+            return insert_into_all(s[0], a) + b
+    return subseq_helper(s[1:], s[0])
 
 
 def num_trees(n):
