@@ -65,14 +65,12 @@ def planet(mass):
     """Construct a planet of some mass."""
     assert mass > 0
     return ["planet",mass]
-    "*** YOUR CODE HERE ***"
 
 
 def mass(w):
     """Select the mass of a planet."""
     assert is_planet(w), 'must call mass on a planet'
     return w[1]
-    "*** YOUR CODE HERE ***"
 
 
 def is_planet(w):
@@ -138,7 +136,6 @@ def balanced(m):
         if not balanced(end(left(m))) or not balanced(end(right(m))):
             return False
     return True
-    "*** YOUR CODE HERE ***"
 
 
 def totals_tree(m):
@@ -171,6 +168,15 @@ def totals_tree(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return [total_weight(m)]
+    elif is_mobile(m):
+        branches = []
+        branches.append(totals_tree(end(left(m))))
+        branches.append(totals_tree(end(right(m))))
+        res = tree(total_weight(m), branches)
+        return res
+    
 
 
 def replace_loki_at_leaf(t, lokis_replacement):
@@ -203,7 +209,20 @@ def replace_loki_at_leaf(t, lokis_replacement):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    tc = copy_tree(t)
+    if is_leaf(tc):
+        if label(tc)=="loki":
+            tc[0]=lokis_replacement
+        # print(tc)
+    else:
+        for i in range(len(branches(tc))):
+            ss = replace_loki_at_leaf(tc[1:][i], lokis_replacement)
+            # print("earlytc",tc)
+            # print("ss",ss)
+            tc[1:][i][0] = ss[0]
+            # print("ss",ss)
+            # print("tc",tc)
+    return tc
 
 def has_path(t, word):
     """Return whether there is a path in a tree where the entries along the path

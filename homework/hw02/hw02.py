@@ -32,7 +32,10 @@ def product(n, term):
     162
     """
     "*** YOUR CODE HERE ***"
-
+    sum=term(1)
+    for i in range(n-1):
+        sum*=term((i+2))
+    return sum
 
 def accumulate(merger, start, n, term):
     """Return the result of merging the first n terms in a sequence and start.
@@ -59,6 +62,10 @@ def accumulate(merger, start, n, term):
     16
     """
     "*** YOUR CODE HERE ***"
+    sum = start
+    for i in range(n):
+        sum = merger(sum,term(i+1))
+    return sum
 
 
 def summation_using_accumulate(n, term):
@@ -75,7 +82,7 @@ def summation_using_accumulate(n, term):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(summation_using_accumulate)).body[0].body]
     ['Expr', 'Return']
     """
-    "*** YOUR CODE HERE ***"
+    return accumulate(add, term(0), n, term)
 
 
 def product_using_accumulate(n, term):
@@ -92,4 +99,4 @@ def product_using_accumulate(n, term):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(product_using_accumulate)).body[0].body]
     ['Expr', 'Return']
     """
-    "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
