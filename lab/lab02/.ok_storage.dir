@@ -4,3 +4,4 @@
 'composite_identity-correct', (1536, 70)
 'cycle-correct', (2048, 70)
 'Higher Order Functions-correct', (2560, 70)
+'lambda_curry2_syntax_check-correct', (3072, 70)
