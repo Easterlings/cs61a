@@ -96,10 +96,11 @@ def yield_paths(t, value):
     >>> sorted(list(path_to_2))
     [[0, 2], [0, 2, 1, 2]]
     """
-    "*** YOUR CODE HERE ***"
-    for _______________ in _________________:
-        for _______________ in _________________:
-            "*** YOUR CODE HERE ***"
+    if label(t) == value:
+      yield [label(t)]
+    for b in branches(t):
+      for path in yield_paths(b, value):
+        yield [label(t)]+path
 
 
 def hailstone(n):
@@ -113,7 +114,26 @@ def hailstone(n):
     1
     """
     "*** YOUR CODE HERE ***"
-
+    # 递归实现:
+    yield n
+    if n==1:
+      pass
+    elif n%2==0:
+      n = int(n/2)
+    else:
+      n = 3 * n + 1
+    for hail_gen in hailstone(n):
+      yield hail_gen
+    ###########################
+    # 迭代实现:
+    # while n != 1:
+    #   yield n
+    #   if n%2==0:
+    #     n = int(n/2)
+    #   else:
+    #     n = 3 * n + 1
+    # while True:
+    #   yield 1
 
 def remainders_generator(m):
     """
@@ -147,6 +167,14 @@ def remainders_generator(m):
     11
     """
     "*** YOUR CODE HERE ***"
+    def generator(n,m):
+      natural = naturals()
+      while True:
+        num = next(natural)
+        if num % m == n:
+          yield num
+    for i in range(m):
+      yield generator(i,m)
 
 
 # Tree ADT
