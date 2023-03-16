@@ -33,9 +33,11 @@ class Mint:
         self.update()
 
     def create(self, coin):
+        return coin(self.year)
         "*** YOUR CODE HERE ***"
 
     def update(self):
+        self.year = self.present_year
         "*** YOUR CODE HERE ***"
 
 
@@ -46,6 +48,7 @@ class Coin:
         self.year = year
 
     def worth(self):
+        return self.cents+max(0,Mint.present_year - self.year -50)
         "*** YOUR CODE HERE ***"
 
 
@@ -74,6 +77,11 @@ def store_digits(n):
     >>> link1 = Link(3, Link(Link(4), Link(5, Link(6))))
     """
     "*** YOUR CODE HERE ***"
+    ss = Link.empty
+    while n>0:
+        ss = Link(n%10,ss)
+        n=n//10
+    return ss
 
 
 def deep_map_mut(func, lnk):
@@ -94,6 +102,18 @@ def deep_map_mut(func, lnk):
     <9 <16> 25 36>
     """
     "*** YOUR CODE HERE ***"
+    if lnk is Link.empty:
+        return 
+    if isinstance(lnk, int):
+        lnk = func(lnk)
+    if isinstance(lnk.first, int):
+        lnk.first = func(lnk.first)
+        # print(lnk)
+        # print("Sst")
+    if isinstance(lnk.first, Link):
+        deep_map_mut(func, lnk.first)
+    deep_map_mut(func, lnk.rest)
+
 
 
 def two_list(vals, counts):
@@ -116,6 +136,12 @@ def two_list(vals, counts):
     Link(1, Link(1, Link(3, Link(3, Link(2)))))
     """
     "*** YOUR CODE HERE ***"
+    other = Link.empty
+    for i in range(len(vals)):
+        for j in range(counts[len(vals)-i-1]):
+            other = Link(vals[len(vals)-i-1],other)
+    return other
+
 
 
 class VirFib():
@@ -199,7 +225,6 @@ class Link:
     <5 7 <8 9>>
     """
     empty = ()
-
     def __init__(self, first, rest=empty):
         assert rest is Link.empty or isinstance(rest, Link)
         self.first = first
