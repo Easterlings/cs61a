@@ -97,21 +97,11 @@ def accuracy(typed, source):
         return 100.0
     elif len1 ==0 or len2 ==0:
         return 0.0
-    elif len1 <= len2:
-        while i < len1:
-            if typed_words[i]==source_words[i]:
-                count+=1
-                i+=1
-            else:
-                i+=1
-        return 100.0*count/len1
-    elif len1 > len2:
-        while i < len2:
-            if typed_words[i]==source_words[i]:
-                count+=1
-                i+=1
-            else:
-                i+=1
+    else:
+        min_len = min(len1,len2)
+        for i in range(min_len):
+            if source_words[i] == typed_words[i]:
+                count += 1
         return 100.0*count/len1
 
     # BEGIN PROBLEM 3
@@ -134,7 +124,6 @@ def wpm(typed, elapsed):
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
     return (len(typed)/5)/(elapsed/60)
-    "*** YOUR CODE HERE ***"
     # END PROBLEM 4
 
 
@@ -167,9 +156,11 @@ def autocorrect(typed_word, word_list, diff_function, limit):
         return typed_word
     else:
         for word in word_list:
-            if diff_function(typed_word,word,limit)<=min:
-                min = diff_function(typed_word,word,limit)
-                theword = word
+            distence = diff_function(typed_word,word,limit)
+            if distence <= min:
+                if theword == typed_word or distence < min:
+                    min = distence
+                    theword = word
         return theword 
 
     # END PROBLEM 5
