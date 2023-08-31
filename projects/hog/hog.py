@@ -236,7 +236,16 @@ def max_scoring_num_rolls(dice=six_sided, total_samples=1000):
     1
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    max_score = 0
+    bestnum=0
+    averaged_dice = make_averaged(roll_dice, total_samples)
+    the_dice = dice
+    for i in range (1,11):
+        score = averaged_dice(i, the_dice)
+        if score > max_score:
+            bestnum = i
+            max_score = score
+    return bestnum
     # END PROBLEM 9
 
 
@@ -280,6 +289,8 @@ def tail_strategy(score, opponent_score, threshold=12, num_rolls=6):
     points, and returns NUM_ROLLS otherwise. Ignore score and Square Swine.
     """
     # BEGIN PROBLEM 10
+    if tail_points(opponent_score)>=threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 10
 
@@ -287,6 +298,8 @@ def tail_strategy(score, opponent_score, threshold=12, num_rolls=6):
 def square_strategy(score, opponent_score, threshold=12, num_rolls=6):
     """This strategy returns 0 dice when your score would increase by at least threshold."""
     # BEGIN PROBLEM 11
+    if square_update(0, score, opponent_score)-score >= threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
 
