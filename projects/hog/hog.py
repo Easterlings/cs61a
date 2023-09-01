@@ -310,7 +310,21 @@ def final_strategy(score, opponent_score):
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
-    return 6  # Remove this line once implemented.
+    averaged_dice = make_averaged(roll_dice, 100)
+    if square_update(0, score, opponent_score)-score >= averaged_dice(6):
+        return 0
+    elif 100 - score < averaged_dice(1):
+        return 1
+    elif 100 - score < averaged_dice(2):
+        return 2
+    elif 100 - score < averaged_dice(3):
+        return 3
+    elif 100 - score < averaged_dice(4):
+        return 4
+    elif 100 - score < averaged_dice(5):
+        return 5
+    else :
+        return 6
     # END PROBLEM 12
 
 
