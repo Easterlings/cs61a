@@ -30,7 +30,6 @@ def pick(paragraphs, select, k):
     ''
     """
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
     paragraphs = [i for i in paragraphs if select(i)]
     if len(paragraphs)>k:
         return paragraphs[k]
@@ -87,6 +86,7 @@ def accuracy(typed, source):
     >>> accuracy('', '')
     100.0
     """
+    # BEGIN PROBLEM 3
     typed_words = split(typed)
     source_words = split(source)
     len1 = len(typed_words)
@@ -103,9 +103,6 @@ def accuracy(typed, source):
             if source_words[i] == typed_words[i]:
                 count += 1
         return 100.0*count/len1
-
-    # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
     # END PROBLEM 3
 
 
@@ -162,7 +159,6 @@ def autocorrect(typed_word, word_list, diff_function, limit):
                     min = distence
                     theword = word
         return theword 
-
     # END PROBLEM 5
 
 
@@ -216,21 +212,24 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-    if ______________:  # Fill in the condition
+    if limit<0:  # Fill in the condition
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return 1
         # END
-    elif ___________:  # Feel free to remove or add additional cases
+    elif len(start) == 0 or len(goal) == 0:  # Feel free to remove or add additional cases
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return max(len(start),len(goal))
+        # END
+    elif start[0] == goal[0]:  # Feel free to remove or add additional cases
+        # BEGIN
+        return minimum_mewtations(start[1:], goal[1:], limit)
         # END
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
+        add = minimum_mewtations(goal[0]+start, goal, limit-1)+1  # Fill in these lines
+        remove = minimum_mewtations(start[1:], goal, limit-1)+1
+        substitute = minimum_mewtations(goal[0]+start[1:], goal, limit-1)+1
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return min(add,remove,substitute)
         # END
 
 
