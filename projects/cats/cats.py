@@ -271,7 +271,15 @@ def report_progress(typed, prompt, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    count = 0
+    for i,val in enumerate(typed):
+        if typed[i]==prompt[i]:
+            count+=1
+        else:
+            break
+    Progress = count/len(prompt)
+    upload({'id': user_id, 'progress': Progress})
+    return Progress
     # END PROBLEM 8
 
 
@@ -293,7 +301,13 @@ def time_per_word(words, times_per_player):
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    times = []
+    for player in times_per_player:
+        time = []
+        for i in range(len(player)-1):
+            time.append(player[i+1]-player[i])
+        times.append(time)
+    return match(words, times)
     # END PROBLEM 9
 
 
