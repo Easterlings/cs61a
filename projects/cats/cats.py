@@ -329,7 +329,19 @@ def fastest_words(match):
     player_indices = range(len(get_all_times(match)))  # contains an *index* for each player
     word_indices = range(len(get_all_words(match)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+    times = get_all_times(match)
+    words = get_all_words(match)
+    alltime = list(map(sum,get_all_times(match)))
+    res = [[] for player in player_indices]
+    for j in word_indices:
+        min = max(alltime)
+        k = 0
+        for i in player_indices:
+            if times[i][j] < min:
+                k = i
+                min = times[i][j]
+        res[k].append(words[j])
+    return res
     # END PROBLEM 10
 
 
@@ -381,7 +393,7 @@ def match_string(match):
     return f"match({match['words']}, {match['times']})"
 
 
-enable_multiplayer = False  # Change to True when you're ready to race.
+enable_multiplayer = True  # Change to True when you're ready to race.
 
 ##########################
 # Command Line Interface #
